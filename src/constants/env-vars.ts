@@ -1,23 +1,6 @@
 import { z } from 'zod';
 
-const envSchema = z
-	.object({
-		IS_PWA_ENABLED: z.union([
-			z.literal('true'),
-			z.literal('false'),
-			z.undefined(),
-		]),
-		IS_PWA_DEV_ENABLED: z.union([
-			z.literal('true'),
-			z.literal('false'),
-			z.undefined(),
-		]),
-	})
-	.transform((val) => ({
-		...val,
-		IS_PWA_ENABLED: val.IS_PWA_ENABLED === 'true',
-		IS_PWA_DEV_ENABLED: val.IS_PWA_DEV_ENABLED === 'true',
-	}));
+import { envSchema } from '../validations/env-vars.schema';
 
 const envVariables: Partial<Record<keyof z.infer<typeof envSchema>, unknown>> =
 	{
